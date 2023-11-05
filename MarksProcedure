@@ -1,0 +1,43 @@
+USE Nikhil;
+
+
+CREATE TABLE Stud_Marks ( Roll int, name VARCHAR(50), total_marks INT);
+
+
+INSERT INTO Stud_Marks VALUES (1, "Nikhil", 991),(2, "Vishal", 912),(3, "Ritesh", 840),(4, "Mayur", 800);
+
+
+CREATE TABLE Result ( Roll INT,
+Name VARCHAR(50), Class VARCHAR(50)
+);
+
+
+DELIMITER //
+CREATE PROCEDURE proc_Grade(
+ 
+OUT p_name VARCHAR(50),
+OUT p_total_marks INT, IN p_Roll INT,
+OUT p_Class VARCHAR(50)
+)
+
+
+BEGIN
+SELECT name, total_marks INTO p_name, p_total_marks FROM Stud_Marks WHERE Roll = p_Roll;
+
+
+IF p_total_marks >= 990 THEN SET p_class = "Distinction";
+ELSEIF p_total_marks >=900 AND p_total_marks <= 989 THEN SET p_class = "First Class";
+ELSEIF p_total_marks >=825 AND p_total_marks <= 899 THEN SET p_class = "Higher Second Class";
+ELSE
+SET p_class = "Not Classified"; END IF;
+INSERT INTO Result (Roll, Name, Class) VALUES (p_Roll, p_name, p_Class); END //
+
+DELIMITER ;
+
+
+SELECT * FROM stud_Marks;
+
+
+CALL proc_Grade(@name, @marks, 1, @class);
+CALL proc_Grade(@name, @marks, 2, @class);
+SELECT * FROM result;

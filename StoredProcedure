@@ -1,0 +1,77 @@
+CREATE DATABASE Nikhil;
+USE Nikhil;
+CREATE TABLE borrower(roll_no INT,
+name VARCHAR(50),
+dateofissue DATE,
+name_of_book VARCHAR(50), status varchar(1)
+);
+
+
+
+
+INSERT INTO borrower VALUES
+(101, 'Nikhil', '2022-08-01', 'DBMS', 'I'),
+(102, 'Vishal', '2022-09-18', 'IOT', 'I'),
+(103, 'Radhika', '2022-10-02', 'CNS', 'I'),
+(104, 'Ram', '2022-09-05', 'TOC', 'I');
+
+
+
+
+CREATE TABLE fine(roll_no INT,
+date_of_return DATE, amt INT);
+ 
+DELIMITER //
+CREATE PROCEDURE CalculateFine(IN p_roll_no INT, IN p_book_name VARCHAR(50)) BEGIN
+DECLARE v_issue_date DATE; DECLARE v_days INT; DECLARE v_fine INT;
+
+SELECT 'dateofissue' INTO v_issue_date
+FROM borrower
+WHERE roll_no = p_roll_no
+AND 'name_of_book' = p_book_name;
+
+
+SET v_days = DATEDIFF(CURDATE(), v_issue_date);
+
+
+IF v_days BETWEEN 15 AND 30 THEN
+SET v_fine = v_days * 5; ELSEIF v_days > 30 THEN SET v_fine = v_days * 50; ELSE
+SET v_fine = 0; END IF;
+
+
+
+if (v_fine is not null) then
+INSERT INTO fine(roll_no, date_of_return, amt)
+ 
+VALUES (p_roll_no, CURDATE(), v_fine);
+
+
+
+
+UPDATE borrower
+SET status = 'R'
+WHERE roll_no = p_roll_no
+AND `name_of_book` = p_book_name; End if;
+END 
+
+
+
+
+
+
+SELECT * FROM Fine;
+
+
+
+
+CALL CalculateFine(104,'TOC');
+
+
+
+
+SELECT * FROM fine;
+
+
+
+
+SELECT * FROM borrower;

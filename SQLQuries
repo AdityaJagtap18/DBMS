@@ -1,0 +1,74 @@
+CREATE DATABASE Nikhil;
+USE Nikhil;
+
+
+CREATE TABLE Deposit(
+actno int PRIMARY KEY, cname varchar(200), bname varchar(200), amount int,
+adate date
+);
+
+
+CREATE TABLE Branch(
+bname varchar(200), city varchar(200)
+);
+
+
+CREATE TABLE Customer(
+Cname varchar(200), city varchar(200)
+);
+ 
+CREATE TABLE Borrow(
+
+loanno int,
+cname varchar(200), bname varchar(200), amount int
+);
+
+
+
+
+INSERT INTO Deposit(actno,cname,bname,amount,adate) VALUES
+(1234,'Anil', 'Wagholi', 1000, '2015-08-11'),
+(9122, 'Ram', 'Hadapsar',2000, '2011-04-18'),
+(7066, 'Rohit', 'Karolbagh', 3000, '2001-04-18'),
+(9223, 'Sunil','Thane', 4000, '2016-07-22');
+
+
+INSERT INTO Branch(bname,city) VALUES
+('Wagholi', 'pune'),
+('hadapsar', 'pune'),
+('karolbagh', 'Delhi'),
+('Thane', 'Mumbai');
+
+
+INSERT INTO Customer (Cname, city) VALUES
+('Anil', 'pune'),
+('Ram','pune'),
+('Rohit', 'Delhi'),
+('Sunil', 'Mumbai');
+ 
+INSERT INTO Borrow(loanno, cname, bname, amount) VALUES
+(5556, 'Ram', 'Hadapsar', 20000),
+(9875, 'Rohit','Karolbagh', 69000),
+(5265, 'Sunil', 'Thane', 100000);
+
+
+SELECT adate FROM Deposit WHERE cname='Anil';
+
+UPDATE Deposit SET amount= 20000
+WHERE actno= 1234;
+
+
+SELECT cname FROM Customer WHERE city= 'Pune';
+
+SELECT city FROM Branch WHERE bname='Karolbagh';
+
+SELECT COUNT(Cname) FROM Customer
+
+
+DELETE FROM borrow WHERE cname = 'Sunil'; CREATE VIEW ViewDemo AS
+SELECT actno, Cname FROM Deposit
+
+
+
+select * from ViewDemo;
+ 

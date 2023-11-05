@@ -1,0 +1,69 @@
+mongosh
+
+show dbs
+
+use mydb
+
+show collections
+
+db.std
+
+db.std.insertOne({Name: "Aditya",Roll_no:1,Pass:"y"})
+
+db.std.insertMany([{Name: "Saloni",Roll_no:2,Pass:"y"},{Name: "Shree",Roll_no:3,Pass:"y"},{Name: "mane",Roll_no:4,Pass:"n"}])
+
+db.std.find()
+
+db.std.find().limit(3)
+
+db.std.insertOne({Name: "Priyal",Roll_no:5,Pass:"y"})
+
+db.std.find()
+
+db.std.find({Pass:"y"})
+
+db.std.find({Pass:"y"}).sort({Roll_no:1})
+
+db.std.find({Pass:"y"}).sort({Roll_no:-1})
+
+db.std.deleteOne({Roll_no: 5})
+
+db.std.find()
+
+db.std.deleteOne({Pass: "n"})
+
+db.std.find()
+
+db.std.insertOne({Name: "Priyal",Roll_no:4,Pass:"y"})
+
+db.std.insertMany([{Name: "Shruti",Roll_no:7,Pass:"n"},{Name: "Sahil",Roll_no:6,Pass:"n"},{Name: "mane",Roll_no:5,Pass:"n"}])
+
+db.std.find()
+
+db.std.find().sort({Roll_no: 1})
+
+db.std.deleteMany({Pass: "n"})
+
+db.std.find().sort({Roll_no: 1})
+
+db.std.insertOne({Name: "Sahil",Roll_no:5,Pass:"y"})
+
+db.std.find().sort({Roll_no: 1})
+
+db.std.updateOne({Roll_no: 5},{$set:{Pass:"n"}})
+
+db.std.find({Pass:"n"},{Name:1,Pass:1})
+
+db.std.updateMany({Roll_no: {$gt:2}},{$set:{Pass:"n"}})
+
+db.std.find({Pass:"n"},{Name:1,Pass:1})
+
+db.std.find().sort({Pass:1})
+
+db.std.find().sort({Pass:1,Name:-1})
+
+db.std.find({Roll_no:{$gt:3}}).sort({Name:1})
+
+ db.std.find().sort({Roll_no:1})
+
+

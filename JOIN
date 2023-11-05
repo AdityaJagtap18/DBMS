@@ -1,0 +1,63 @@
+CREATE DATABASE NikhilRai;
+USE NikhilRai;
+CREATE TABLE Departments(
+
+DepartmentID INT,
+DepartmentName VARCHAR(100), PRIMARY KEY(DepartmentID)
+);
+
+
+CREATE TABLE Employees(
+
+EmployeeID INT ,
+FirstName VARCHAR(100), LastName VARCHAR(100),
+DepartmentID INT,
+PRIMARY KEY(EmployeeID),
+FOREIGN KEY(DepartmentID) REFERENCES Departments(DepartmentID)
+);
+
+INSERT INTO Departments VALUES
+(100, 'HR'),
+(105, 'Sales'),
+(110, 'IT'),
+(115, 'Marketing');
+ 
+INSERT INTO Employees VALUES
+(421, 'Nikhil', 'Rai', 100),
+(632, 'Mayur', 'Gulve', 105),
+(712, 'Ritesh', 'Gaikwad', 100),
+(892, 'Vishal','Gaikwad', 110);
+
+
+SELECT * FROM Employees CROSS JOIN Departments;
+
+SELECT * FROM Employees e INNER JOIN Departments d
+ON e.DepartmentID = d.DepartmentID AND e.DepartmentID > 101;
+
+
+SELECT * FROM Employees e INNER JOIN Departments d ON e.DepartmentID = d.DepartmentID;
+SELECT * FROM Employees e NATURAL JOIN Departments d;
+
+SELECT * FROM Employees e LEFT JOIN Departments d
+ON e.DepartmentID = d.DepartmentID;
+
+
+SELECT * FROM Employees e RIGHT JOIN Departments d
+ 
+ON e.DepartmentID = d.DepartmentID;
+
+
+SELECT * FROM Employees e
+LEFT JOIN Departments d ON e.DepartmentID = d.DepartmentID UNION
+SELECT * FROM Employees e
+RIGHT JOIN Departments d ON e.DepartmentID = d.DepartmentID;
+
+
+SELECT FirstName, LastName FROM Employees
+WHERE DepartmentID = (SELECT DepartmentID FROM Departments WHERE DepartmentName = 'HR');
+
+
+CREATE VIEW EmployeeView AS
+SELECT e.EmployeeID, e.FirstName, e.LastName, d.DepartmentName FROM Employees e
+INNER JOIN Departments d ON e.DepartmentID = d.DepartmentID; SELECT * FROM EmployeeView;
+ 

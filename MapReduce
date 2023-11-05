@@ -1,0 +1,21 @@
+ mongosh
+
+show dbs
+
+use mydb
+
+show collections
+
+db.std
+
+db.std.insertMany([{Name:"Aditya",Class:"A",Marks:80,Pass:"y",Gender:"M"},{Name:"Saloni",Class:"B",Marks:75,Pass:"y",Gender:"F"},{Name:"Priyal",Class:"B",Marks:79,Pass:"y",Gender:"F"},{Name:"Sahil",Class:"B",Marks:69,Pass:"y",Gender:"M"},{Name:"Shree",Class:"A",Marks:55,Pass:"n",Gender:"M"},{Name:"Mane",Class:"B",Marks:44,Pass:"n",Gender:"M"},{Name:"Prathamesh",Class:"A",Marks:71,Pass:"y",Gender:"M"}])
+
+db.std.find()
+
+var mapfunction=function(){emit(this.Gender,this.Marks)}
+
+var reducefunction=function(key,values){return Array.sum(values)}
+
+db.std.mapReduce(mapfunction,reducefunction,{'out':'Result1_mapreduce'})
+
+db.Result1_mapreduce.find()

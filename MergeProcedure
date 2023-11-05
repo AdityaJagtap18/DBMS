@@ -1,0 +1,54 @@
+Create Database nikhil
+
+
+use nikhil;
+
+
+
+CREATE TABLE N_RollCall (
+RollNumber INT PRIMARY KEY, Name VARCHAR(25)
+);
+
+
+CREATE TABLE O_RollCall (
+RollNumber INT PRIMARY KEY, Name VARCHAR(25)
+);
+
+
+-INSERT INTO N_RollCall (RollNumber, Name) VALUES (1, 'nikhil'), (2, 'Mayur'), (3, 'Ritesh');
+
+INSERT INTO O_RollCall (RollNumber, Name) VALUES (1, 'nikhil'), (4, 'Rahul'), (5, 'Chetan');
+ 
+
+
+
+CREATE PROCEDURE MergeData() BEGIN
+
+DECLARE rln INT;
+DECLARE nm VARCHAR(25);
+
+
+DECLARE cur CURSOR FOR SELECT RollNumber, Name FROM N_RollCall;
+
+
+OPEN cur;
+
+read_loop: LOOP
+FETCH cur INTO rln, nm;
+
+
+
+
+IF NOT EXISTS (SELECT 1 FROM O_RollCall WHERE RollNumber = rln AND Name = nm) THEN
+INSERT INTO O_RollCall (RollNumber, Name) VALUES (rln, nm); END IF;
+
+END LOOP;
+ 
+CLOSE cur;
+
+END 
+
+
+ CALL MergeData();
+
+SELECT * FROM O_RollCall;
